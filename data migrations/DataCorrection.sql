@@ -22,35 +22,40 @@ with audits as (
     update encounter set observations = observations ||
                                         jsonb_strip_nulls(json_build_object(
                                                 '16188801-c97c-44bd-8ee3-743263584e11', case
-                                                                                            when jsonb_typeof(observations -> '16188801-c97c-44bd-8ee3-743263584e11') =
-                                                                                                 'array'
-                                                                                                then (observations -> '16188801-c97c-44bd-8ee3-743263584e11')
-                                                                                            else to_jsonb(
-                                                                                                    array [observations ->> '16188801-c97c-44bd-8ee3-743263584e11']) end,
+                                                                                            when (observations -> '16188801-c97c-44bd-8ee3-743263584e11') =
+                                                                                                 '[
+                                                                                                   null
+                                                                                                 ]'::jsonb
+                                                                                                then NULL
+                                                                                            else (observations -> '16188801-c97c-44bd-8ee3-743263584e11') end,
                                                 '724f3ae4-62c8-4975-8ea8-d01338b27d29', case
-                                                                                            when jsonb_typeof(observations -> '724f3ae4-62c8-4975-8ea8-d01338b27d29') =
-                                                                                                 'array'
-                                                                                                then (observations -> '724f3ae4-62c8-4975-8ea8-d01338b27d29')
-                                                                                            else to_jsonb(
-                                                                                                    array [observations ->> '724f3ae4-62c8-4975-8ea8-d01338b27d29']) end,
+                                                                                            when (observations -> '724f3ae4-62c8-4975-8ea8-d01338b27d29') =
+                                                                                                 '[
+                                                                                                   null
+                                                                                                 ]'::jsonb
+                                                                                                then NULL
+                                                                                            else (observations -> '724f3ae4-62c8-4975-8ea8-d01338b27d29') end,
                                                 '975c75b7-cc14-4432-bdce-b33f5f816d41', case
-                                                                                            when jsonb_typeof(observations -> '975c75b7-cc14-4432-bdce-b33f5f816d41') =
-                                                                                                 'array'
-                                                                                                then (observations -> '975c75b7-cc14-4432-bdce-b33f5f816d41')
-                                                                                            else to_jsonb(
-                                                                                                    array [observations ->> '975c75b7-cc14-4432-bdce-b33f5f816d41']) end,
+                                                                                            when (observations -> '975c75b7-cc14-4432-bdce-b33f5f816d41') =
+                                                                                                 '[
+                                                                                                   null
+                                                                                                 ]'::jsonb
+                                                                                                then NULL
+                                                                                            else (observations -> '975c75b7-cc14-4432-bdce-b33f5f816d41') end,
                                                 'bedd0845-8eda-4955-b6da-436704e639bb', case
-                                                                                            when jsonb_typeof(observations -> 'bedd0845-8eda-4955-b6da-436704e639bb') =
-                                                                                                 'array'
-                                                                                                then (observations -> 'bedd0845-8eda-4955-b6da-436704e639bb')
-                                                                                            else to_jsonb(
-                                                                                                    array [observations ->> 'bedd0845-8eda-4955-b6da-436704e639bb']) end,
+                                                                                            when (observations -> 'bedd0845-8eda-4955-b6da-436704e639bb') =
+                                                                                                 '[
+                                                                                                   null
+                                                                                                 ]'::jsonb
+                                                                                                then NULL
+                                                                                            else (observations -> 'bedd0845-8eda-4955-b6da-436704e639bb') end,
                                                 'ec6449fa-df43-46c8-8508-7dbe1545df14', case
-                                                                                            when jsonb_typeof(observations -> 'ec6449fa-df43-46c8-8508-7dbe1545df14') =
-                                                                                                 'array'
-                                                                                                then (observations -> 'ec6449fa-df43-46c8-8508-7dbe1545df14')
-                                                                                            else to_jsonb(
-                                                                                                    array [observations ->> 'ec6449fa-df43-46c8-8508-7dbe1545df14']) end
+                                                                                            when (observations -> 'ec6449fa-df43-46c8-8508-7dbe1545df14') =
+                                                                                                 '[
+                                                                                                   null
+                                                                                                 ]'::jsonb
+                                                                                                then NULL
+                                                                                            else (observations -> 'ec6449fa-df43-46c8-8508-7dbe1545df14') end
                                             )::jsonb)::jsonb
         where encounter_type_id = 662
             and (
@@ -91,67 +96,75 @@ where id in (select audit_id from audits);
 -- d9fe1ad5-9feb-4e90-b92f-6a471037abb7,Program Encounter,659,Shelter
 -- f762f273-4650-413e-bc24-1dba6bf596cf,Program Encounter,659,Shelter
 with audits as (
-    update program_encounter set observations = observations ||
-                                                jsonb_strip_nulls(json_build_object(
-                                                        '0ac65b0a-a003-4865-ab44-8197c61bb05f', case
-                                                                                                    when jsonb_typeof(observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f') =
-                                                                                                         'array'
-                                                                                                        then (observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> '0ac65b0a-a003-4865-ab44-8197c61bb05f']) end,
-                                                        '27905a75-64c0-4561-a892-df0c0a301eab', case
-                                                                                                    when jsonb_typeof(observations -> '27905a75-64c0-4561-a892-df0c0a301eab') =
-                                                                                                         'array'
-                                                                                                        then (observations -> '27905a75-64c0-4561-a892-df0c0a301eab')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> '27905a75-64c0-4561-a892-df0c0a301eab']) end,
-                                                        '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7', case
-                                                                                                    when jsonb_typeof(observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7') =
-                                                                                                         'array'
-                                                                                                        then (observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7']) end,
-                                                        '9b866b15-d0d7-4bb2-8a53-d6838d742825', case
-                                                                                                    when jsonb_typeof(observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825') =
-                                                                                                         'array'
-                                                                                                        then (observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> '9b866b15-d0d7-4bb2-8a53-d6838d742825']) end,
-                                                        'b04e6038-11f8-4df9-9a7f-908993a7e299', case
-                                                                                                    when jsonb_typeof(observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299') =
-                                                                                                         'array'
-                                                                                                        then (observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> 'b04e6038-11f8-4df9-9a7f-908993a7e299']) end,
-                                                        'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1', case
-                                                                                                    when jsonb_typeof(observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1') =
-                                                                                                         'array'
-                                                                                                        then (observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1']) end,
-                                                        'd9fe1ad5-9feb-4e90-b92f-6a471037abb7', case
-                                                                                                    when jsonb_typeof(observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7') =
-                                                                                                         'array'
-                                                                                                        then (observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7']) end,
-                                                        'f762f273-4650-413e-bc24-1dba6bf596cf', case
-                                                                                                    when jsonb_typeof(observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf') =
-                                                                                                         'array'
-                                                                                                        then (observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf')
-                                                                                                    else to_jsonb(
-                                                                                                            array [observations ->> 'f762f273-4650-413e-bc24-1dba6bf596cf']) end
-                                                    )::jsonb)::jsonb
+    update program_encounter set observations = jsonb_strip_nulls(observations ||
+                                                                  jsonb_build_object(
+                                                                          '0ac65b0a-a003-4865-ab44-8197c61bb05f', case
+                                                                                                                      when (observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f') end,
+                                                                          '27905a75-64c0-4561-a892-df0c0a301eab', case
+                                                                                                                      when (observations -> '27905a75-64c0-4561-a892-df0c0a301eab') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> '27905a75-64c0-4561-a892-df0c0a301eab') end,
+                                                                          '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7', case
+                                                                                                                      when (observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7') end,
+                                                                          '9b866b15-d0d7-4bb2-8a53-d6838d742825', case
+                                                                                                                      when (observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825') end,
+                                                                          'b04e6038-11f8-4df9-9a7f-908993a7e299', case
+                                                                                                                      when (observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299') end,
+                                                                          'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1', case
+                                                                                                                      when (observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1') end,
+                                                                          'd9fe1ad5-9feb-4e90-b92f-6a471037abb7', case
+                                                                                                                      when (observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7') end,
+                                                                          'f762f273-4650-413e-bc24-1dba6bf596cf', case
+                                                                                                                      when (observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf') =
+                                                                                                                           '[
+                                                                                                                             null
+                                                                                                                           ]'::jsonb
+                                                                                                                          then NULL
+                                                                                                                      else (observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf') end
+                                                                      ))
         where encounter_type_id = 659
             and (
-                          jsonb_typeof(observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f') = 'string' OR
-                          jsonb_typeof(observations -> '27905a75-64c0-4561-a892-df0c0a301eab') = 'string' OR
-                          jsonb_typeof(observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7') = 'string' OR
-                          jsonb_typeof(observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825') = 'string' OR
-                          jsonb_typeof(observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299') = 'string' OR
-                          jsonb_typeof(observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1') = 'string' OR
-                          jsonb_typeof(observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7') = 'string' OR
-                          jsonb_typeof(observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf') = 'string'
+                          (observations -> '0ac65b0a-a003-4865-ab44-8197c61bb05f')::text ilike '%null%' OR
+                          (observations -> '27905a75-64c0-4561-a892-df0c0a301eab')::text ilike '%null%' OR
+                          (observations -> '8fec4f5d-d8d2-49a8-ae7e-0272b529f3c7')::text ilike '%null%' OR
+                          (observations -> '9b866b15-d0d7-4bb2-8a53-d6838d742825')::text ilike '%null%' OR
+                          (observations -> 'b04e6038-11f8-4df9-9a7f-908993a7e299')::text ilike '%null%' OR
+                          (observations -> 'cc42a1b6-955f-4018-a9b2-ad4bcfa971c1')::text ilike '%null%' OR
+                          (observations -> 'd9fe1ad5-9feb-4e90-b92f-6a471037abb7')::text ilike '%null%' OR
+                          (observations -> 'f762f273-4650-413e-bc24-1dba6bf596cf')::text ilike '%null%'
                   )
         returning audit_id
 )
