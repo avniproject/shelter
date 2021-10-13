@@ -827,10 +827,11 @@ where id in (select audit_id from audits);
 
 
 with audits as (
-    update program_encounter set is_voided = true where individual_id in
-                                                        (select id
-                                                         from individual
-                                                         where uuid in (
+     update program_encounter set is_voided = true where program_enrolment_id in
+                                                        (select pe.id
+                                                         from individual i
+                                                                  left join program_enrolment pe on i.id = pe.individual_id
+                                                         where i.uuid in (
                                                                         '77ebe66e-a130-42c0-815b-72af5a6dc4f2',
                                                                         '9b564c0a-3032-4a0e-80d9-6eae910e981a',
                                                                         'c459b6d2-c431-49e9-bb78-4a5925d6bcad',
