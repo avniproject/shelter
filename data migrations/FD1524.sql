@@ -142,8 +142,8 @@ select jsonb_strip_nulls(jsonb_build_object(
        (select id from organisation where name = 'Shelter'),
        (select id from users where username = 'shubhangi@shelter'),
        (select id from users where username = 'shubhangi@shelter'),
-       current_timestamp,
-       current_timestamp
+       current_timestamp(3) + (id / 1000) * interval '1 millisecond',
+       current_timestamp(3) + (id / 1000) * interval '1 millisecond'
 
 from individual
 where is_voided = false
@@ -205,8 +205,8 @@ select jsonb_strip_nulls(jsonb_build_object(
        (select id from organisation where name = 'Shelter'),
        (select id from users where username = 'shubhangi@shelter'),
        (select id from users where username = 'shubhangi@shelter'),
-       current_timestamp,
-       current_timestamp
+       current_timestamp(3) + (id / 1000) * interval '1 millisecond',
+       current_timestamp(3) + (id / 1000) * interval '1 millisecond'
 from individual
 where is_voided = false
   and subject_type_id = (select id from subject_type where name = 'Family Member')
