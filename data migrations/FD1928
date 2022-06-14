@@ -1,0 +1,35 @@
+set role shelter;
+
+-- RHS encounter cancellation is a program encounter cancellation form type. However, it does not have any form mapping. This needs to be voided.
+update form_mapping
+set is_voided               = true,
+    last_modified_date_time = now()
+where id = 1742;
+
+-- Currently ETL does not support schemas where program names clash with encounter types that are not part of a program. This query fixes the case where this exists
+update operational_program
+set name = 'Sanitation program', last_modified_date_time = now()
+where name = 'Sanitation'
+  and id = 75;
+
+-- Verification step. operational_encounter_type.id should be null everywhere.
+select operational_program.id, operational_program.name, operational_encounter_type.id
+from operational_program
+         left join operational_encounter_type
+                   on operational_program.name = operational_encounter_type.name
+                       and operational_encounter_type.is_voided is false
+where operational_program.is_voided is false;
+
+-- This concept has a lot of observations of type text and is defined as a number. This update changes it.
+update concept set data_type = 'Text', last_modified_date_time = now() where id = 13300 and name = 'Old Consumer number for Property tax';
+
+
+-- Queries just for fun to see what is really going on here
+select observations, observations->'7ad854de-97b2-4180-be71-4671e71f51b2' from encounter
+where observations->>'7ad854de-97b2-4180-be71-4671e71f51b2' is not null;
+
+select observations, observations->'7ad854de-97b2-4180-be71-4671e71f51b2' from program_enrolment
+where observations->>'7ad854de-97b2-4180-be71-4671e71f51b2' is not null;
+
+-- Set up ETL
+update organisation set has_analytics_db = true where name = 'Shelter';
